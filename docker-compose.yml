@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  halloweenfx:
+    build: .
+    image: halloweenfx:minapi
+    container_name: halloweenfx
+    ports:
+      - "8080:8080"
+    environment:
+      Storage__Root: "/data"
+
+      Ai__Provider: "Stability"
+      Ai__Stability__ApiBase: "https://api.stability.ai"
+      Ai__Stability__Engine: "sd3.5-large-turbo"
+      Ai__Stability__Model: "fast"
+      
+      STABILITY_API_KEY: "${STABILITY_API_KEY:-}"
+    volumes:
+      - ./storage:/data
+    restart: unless-stopped
